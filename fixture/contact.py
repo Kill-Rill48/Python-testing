@@ -1,6 +1,5 @@
 from selenium.webdriver.support.ui import Select
 
-
 class ContactHelper:
 
     def __init__(self, app):
@@ -39,19 +38,16 @@ class ContactHelper:
         # submit creation contact
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
-
     def open_add_contact_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
-
 
     def del_first_contact(self):
         wd = self.app.wd
         self.open_home_page()
         wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]").click()
-
-
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
 
     def open_home_page(self):
         wd = self.app.wd
