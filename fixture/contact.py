@@ -57,10 +57,26 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
-    def modify_contact_by_index(self, index, new_contact_data):
+    def modify_contact_by_index(self, id, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
-        self.select_contact_by_index(index)
+        self.select_contact_by_id(id)
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        chbox = wd.find_element_by_css_selector("input[value='%s']" % id)
+        row = chbox.find_element_by_xpath("./../..")
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(id)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.contact_cache = None
